@@ -62,6 +62,16 @@ public class Enemy : MonoBehaviour {
     void Destruction()                           
     {        
         Instantiate(destructionVFX, transform.position, Quaternion.identity); 
+        // 1. Find the GameManager in the scene
+        ScoreManager scoreManager = FindObjectOfType<ScoreManager>();
+
+        // 2. Add points (e.g., 10 points)
+        if (scoreManager != null)
+        {
+            scoreManager.AddScore(10);
+        }
+
+        // 3. Then destroy the enemy
         Destroy(gameObject);
     }
 }
