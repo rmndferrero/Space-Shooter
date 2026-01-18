@@ -44,17 +44,28 @@ public class Enemy : MonoBehaviour {
             Destruction();
         else
             Instantiate(hitEffect,transform.position,Quaternion.identity,transform);
-    }    
+    }
 
-    //if 'Enemy' collides 'Player', 'Player' gets the damage equal to projectile's damage value
-    private void OnTriggerEnter2D(Collider2D collision)
+    // CHANGE 1: Use 'OnCollisionEnter2D' instead of 'OnTriggerEnter2D'
+    // CHANGE 2: The parameter is 'Collision2D', not 'Collider2D'
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.tag == "Player")
+        // CHANGE 3: We check 'collision.gameObject.tag' (or use CompareTag)
+        if (collision.gameObject.CompareTag("Player"))
         {
-            if (Projectile.GetComponent<Projectile>() != null)
+            // Your original damage logic stays the same
+            if (Projectile != null && Projectile.GetComponent<Projectile>() != null)
+            {
                 Player.instance.GetDamage(Projectile.GetComponent<Projectile>().damage);
+            }
             else
+            {
                 Player.instance.GetDamage(1);
+            }
+
+            // OPTIONAL: Usually, when an enemy hits a player, the enemy should die too.
+            // If you don't destroy the enemy, they will just bounce off the player.
+            // Destroy(gameObject); 
         }
     }
 
