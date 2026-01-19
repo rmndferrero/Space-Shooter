@@ -12,7 +12,7 @@ public class Player : MonoBehaviour
     public HealthBar healthBar;
 
     // --- NEW VARIABLES ---
-    public float invulnerabilityDuration = 0.5f; // How long to stay safe (1 second)
+    public float invulnerabilityDuration = 0.2f; // How long to stay safe (0.2 second)
     private bool isInvulnerable = false;         // Are we currently safe?
     private SpriteRenderer spriteRenderer;
 
@@ -63,7 +63,7 @@ public class Player : MonoBehaviour
 
         // Visual Feedback: First flash RED to show the hit
         spriteRenderer.color = Color.red;
-        yield return new WaitForSeconds(0.3f);
+        yield return new WaitForSeconds(0.2f);
         spriteRenderer.color = Color.white;
 
         // Visual Feedback: Now BLINK for the rest of the duration
